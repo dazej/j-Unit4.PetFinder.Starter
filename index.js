@@ -5,8 +5,7 @@ const pets = require('./data');
 // init express app
 const express = require('express');
 const app = express();
-const cors = require('cors')
-app.use(cors)
+
 
 
 const PORT = 8080;
@@ -30,7 +29,7 @@ app.get('/api/v1/pets', (req, res) => {
     //want to import pets data to this file using const pets = require('./data')
     //then send the data to the page (res.send)
     // then turn the data into a string using json (res.json)
-    res.json(pets)
+    res.send({pets})
 });
 
 // get pet by owner with query string
@@ -38,24 +37,26 @@ app.get('/api/v1/pets/owner', (req, res) => {
     // get the owner from the request
     // target the owner key within each pet object 
     // then send the data to the webpage
+    const {owner} = req.query
+     
 
     // find the pet in the pets array
     const pet = pets.find(pet => pet.owner === owner);
 
     // send the pet as a response
-
+    res.send({pet})
 });
 
 // get pet by name
 app.get('/api/v1/pets/:name', (req, res) => {
     // get the name from the request
-
+    const {name} = req.params
 
     // find the pet in the pets array
     const pet = pets.find(pet => pet.name === name);
 
     // send the pet as a response
-
+    res.send(pet)
 });
 
 app.listen(PORT, () => {

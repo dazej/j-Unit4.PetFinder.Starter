@@ -5,7 +5,7 @@ const pets = require('./data');
 // init express app
 const express = require('express');
 const app = express();
-
+const path = require('path')
 
 
 const PORT = 8080;
@@ -13,14 +13,14 @@ const PORT = 8080;
 // GET - / - returns homepage
 app.get('/', (req, res) => {
     // serve up the public folder as static index.html file
-    //This function accepts a single parameter body that describes the body to be sent in the response.
-   res.send("Homepage")
+  
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 
 });
 
 // hello world route
 app.get('/api', (req, res) => {
-    res.send('Hello World!');
+    res.sendFile('Hello World!');
 });
 
 // get all pets from the database
@@ -28,7 +28,6 @@ app.get('/api/v1/pets', (req, res) => {
     // send the pets array as a response
     //want to import pets data to this file using const pets = require('./data')
     //then send the data to the page (res.send)
-    // then turn the data into a string using json (res.json)
     res.send({pets})
 });
 
